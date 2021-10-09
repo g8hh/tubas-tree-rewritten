@@ -14,13 +14,19 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.0.1",
-	name: "Prestige I",
+	name: "Prestige",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>fuck</h3><br>
-		- shit<br>
-		- ass`
+	<b>v0.0.1: Prestige</b><br>
+-Released the game.<br>
+-Added 6 buildings: Workers, Trees, Point Factories, Banks, Research Labs, and Point Portals.<br>
+-Added 10 prestige upgrades.<br>
+-Added 2 prestige buyables.<br>
+-Added 3 prestige milestones.<br>
+-Added 16 achievements. Some of them have rewards!<br>
+-Added Time Accelerators! Time Accelerators multiply your point production by speeding up time itself.<br>
+-You have -30,000,000 social credit, execution date September 26th<br><br><br>`
 
 let winText = `@randomtuba#8432 You litte f**ker<br>You made a shit of piece with your trash rewrite it's f**King Bad this trash game I will become back my money I hope you will in your next time a cow on a trash farm you sucker`
 
