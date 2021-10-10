@@ -13,11 +13,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.1",
+	num: "0.0.1.1",
 	name: "Prestige",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+  <b>v0.0.1.1</b><br>
+-Fixed a bug where the 2nd milestone could be obtained with 100 prestige points.<br><br><br>
 	<b>v0.0.1: Prestige</b><br>
 -Released the game.<br>
 -Added 6 buildings: Workers, Trees, Point Factories, Banks, Research Labs, and Point Portals.<br>

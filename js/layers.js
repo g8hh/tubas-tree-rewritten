@@ -304,7 +304,7 @@ addLayer("p", {
     1: {
         requirementDescription: "1,000,000 prestige points",
         effectDescription: "Autobuy Banks, Research Labs, and Point Portals.",
-        done() { return player.p.points.gte(100) },
+        done() { return player.p.points.gte(1000000) },
         toggles: [
           ["n","auto4"],
           ["n","auto5"],
