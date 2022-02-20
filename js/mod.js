@@ -18,8 +18,6 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-  <b>v0.0.1.1</b><br>
--Fixed a bug where the 2nd milestone could be obtained with 100 prestige points.<br><br><br>
   <b>v0.0.2: Ascension</b><br>
 -Un-abandoned the game.<br>
 -Added a new prestige layer, Ascension!<br>
@@ -32,6 +30,8 @@ let changelog = `<h1>Changelog:</h1><br>
 -Fixed some issues with the previous version.<br>
 -Added 6 booster upgrades.<br>
 -Added 4 token buyables (2 for prestige tokens, 2 for ascension tokens).<br><br><br>
+  <b>v0.0.1.1</b><br>
+-Fixed a bug where the 2nd milestone could be obtained with 100 prestige points.<br><br><br>
 	<b>v0.0.1: Prestige</b><br>
 -Released the game.<br>
 -Added 6 buildings: Workers, Trees, Point Factories, Banks, Research Labs, and Point Portals.<br>
