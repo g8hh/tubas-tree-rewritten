@@ -13,13 +13,25 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.1.1",
-	name: "Prestige",
+	num: "0.0.2",
+	name: "Ascension",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
   <b>v0.0.1.1</b><br>
 -Fixed a bug where the 2nd milestone could be obtained with 100 prestige points.<br><br><br>
+  <b>v0.0.2: Ascension</b><br>
+-Un-abandoned the game.<br>
+-Added a new prestige layer, Ascension!<br>
+-Added 5 new prestige upgrades.<br>
+-Added 13 ascension upgrades.<br>
+-Added 5 ascension milestones.<br>
+-Added 14 achievements.<br>
+-Added Boosters, which multiply points, and later, other currencies!<br>
+-Added prestige tokens and ascension tokens, contained within a new side layer!<br>
+-Fixed some issues with the previous version.<br>
+-Added 6 booster upgrades.<br>
+-Added 4 token buyables (2 for prestige tokens, 2 for ascension tokens).<br><br><br>
 	<b>v0.0.1: Prestige</b><br>
 -Released the game.<br>
 -Added 6 buildings: Workers, Trees, Point Factories, Banks, Research Labs, and Point Portals.<br>
@@ -62,6 +74,11 @@ function getPointGen() {
   if(hasUpgrade("p",22)) gain = gain.mul(1e10)
   if(hasUpgrade("p",23)) gain = gain.mul(upgradeEffect("p",23))
   if(hasUpgrade("p",24)) gain = gain.mul(upgradeEffect("p",24))
+  if(hasUpgrade("a",11)) gain = gain.mul(100)
+  gain = gain.mul(buyableEffect("p",13))
+  gain = gain.mul(new Decimal(4).mul(hasUpgrade("b",11)?2:1).mul(hasUpgrade("b",12)?upgradeEffect("b",12):1).mul(hasUpgrade("b",23)?upgradeEffect("b",23):1).pow(player.b.points).pow(hasUpgrade("b",21)?2:1))
+  if(hasAchievement("g",54)) gain = gain.mul(player.to.atokens.pow(10).add(1))
+  if(gain.gte("1e3000")) gain = hasUpgrade("p",32) ? (hasUpgrade("a",32) ? gain.pow(0.86).mul("1e420") : gain.pow(0.85).mul("1e450")) : gain.pow(0.75).mul("1e750")
 	return gain
 }
 
@@ -70,12 +87,12 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [
+var displayThings = [`<span>Current Endgame: 1e25,000 points</span><br><div id="taxes" style="color:orange; display:none">Your points have been (softcapped) due to taxes</div>`
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e475"))
+	return player.points.gte(new Decimal("1e25000"))
 }
 
 
