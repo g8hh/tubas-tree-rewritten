@@ -13,15 +13,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.2",
+	num: "0.0.2.1",
 	name: "Ascension",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+  <b>v0.0.2.1</b><br>
+-Fixed a bug where the game crashes when you open the console<br>
+-Fixed the v0.0.2 update info in the changelog<br>
+-Ascension tokens are now capped at 100,000<br><br><br>
   <b>v0.0.2: Ascension</b><br>
 -Un-abandoned the game.<br>
 -Added a new prestige layer, Ascension!<br>
--Added 5 new prestige upgrades.<br>
+-Added 5 new prestige upgrades and a 3rd prestige buyable.<br>
 -Added 13 ascension upgrades.<br>
 -Added 5 ascension milestones.<br>
 -Added 14 achievements.<br>
@@ -87,7 +91,8 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [`<span>Current Endgame: 1e25,000 points</span><br><div id="taxes" style="color:orange; display:none">Your points have been (softcapped) due to taxes</div>`
+var displayThings = [`<span>Current Endgame: 1e25,000 points</span>`,
+        () => player.points.gte("1e3000") ? '<span style="color:orange">Your points have been (softcapped) due to taxes</span>' : ''
 ]
 
 // Determines when the game "ends"

@@ -249,3 +249,21 @@ button > * {
 	--background: transparent !important;
 }
 
+#newsContent {
+	transition-duration: 0s !important;
+}
+#newsbtn {
+	font-size: 32px;
+	color: rgb(255, 255, 255);
+	position: absolute;
+	top: 240px;
+	left: 4px;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+}
+
+#newsbtn:hover {
+	transform: scale(1.2, 1.2);
+	text-shadow: 5px 0px 10px #02f2f2, -3px 0px 12px #02f2f2;
+}

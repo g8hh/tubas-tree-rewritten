@@ -199,7 +199,8 @@ addLayer("to", {
     update(diff){
       if(hasUpgrade("a",25)) player.to.ptokens = player.to.ptokens.add(new Decimal(hasUpgrade("to",12) ? new Decimal(1.3).pow(player.g.achievements.length) : player.g.achievements.length).mul(buyableEffect("to",11)).pow(hasUpgrade("a",31)?1.2:1).mul(diff))
       if(hasUpgrade("a",33)) player.to.atokens = player.to.atokens.add(new Decimal(player.g.achievements.length).sub(24).mul(2).mul(hasUpgrade("to",11)?3:1).mul(diff))
-      player.points.gte("1e3000") ? document.getElementById("taxes").style.display = "" : document.getElementById("taxes").style.display = "none";
+      player.to.atokens = player.to.atokens.min(100000)
+      // player.points.gte("1e3000") ? document.getElementById("taxes").style.display = "" : document.getElementById("taxes").style.display = "none";
     },
     buyables: {
     11: {
