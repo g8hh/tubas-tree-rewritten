@@ -13,16 +13,27 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.2.1",
-	name: "Ascension",
+	num: "0.1",
+	name: "Transcension",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-  <b>v0.0.2.1</b><br>
--Fixed a bug where the game crashes when you open the console<br>
--Fixed the v0.0.2 update info in the changelog<br>
--Ascension tokens are now capped at 100,000<br><br><br>
-  <b>v0.0.2: Ascension</b><br>
+let changelog = `<h1>Tuba's Tree Rewritten Changelog</h1><br><span style="color:red;"><b>WARNING: SPOILERS!</b></span><br><br>
+  <span style="color:#C600D8;"><b style="font-size: 20px;">v0.1: Transcension</b><br>
+-Added a new prestige layer, Transcension!<br>
+-Added 5 new prestige upgrades and 2 new ascension upgrades.<br>
+-Added 2 Ascension Buyables (yes, they exist now!).<br>
+-Added 9 transcension upgrades and 9 transcension milestones.<br>
+-Added 12 achievements (2 new rows!).<br>
+-Added Super-Boosters, which, you guessed it, boost boosters.<br>
+-Added Shards, which give a multiplier to previous currencies, and are generated with a polynomial growth system!<br>
+-Added 3 new booster upgrades.<br>
+-Prestige tokens are now capped at 1e45.<br>
+-Made the changelog look more appealing.<br><br><br></span>
+  <span style="color:#D2D900;"><b>v0.0.2.1</b><br>
+-Fixed a bug where the game crashes when you open the console.<br>
+-Fixed the v0.0.2 update info in the changelog.<br>
+-Ascension tokens are now capped at 100,000.<br><br><br>
+  <b style="font-size: 20px;">v0.0.2: Ascension</b><br>
 -Un-abandoned the game.<br>
 -Added a new prestige layer, Ascension!<br>
 -Added 5 new prestige upgrades and a 3rd prestige buyable.<br>
@@ -33,10 +44,11 @@ let changelog = `<h1>Changelog:</h1><br>
 -Added prestige tokens and ascension tokens, contained within a new side layer!<br>
 -Fixed some issues with the previous version.<br>
 -Added 6 booster upgrades.<br>
--Added 4 token buyables (2 for prestige tokens, 2 for ascension tokens).<br><br><br>
-  <b>v0.0.1.1</b><br>
+-Added 4 token buyables (2 for prestige tokens, 2 for ascension tokens).<br>
+-Added a website icon (the TT:R logo).<br><br><br></span>
+  <span style="color:#0070CC;"><b>v0.0.1.1</b><br>
 -Fixed a bug where the 2nd milestone could be obtained with 100 prestige points.<br><br><br>
-	<b>v0.0.1: Prestige</b><br>
+	<b style="font-size: 20px;">v0.0.1: Prestige</b><br>
 -Released the game.<br>
 -Added 6 buildings: Workers, Trees, Point Factories, Banks, Research Labs, and Point Portals.<br>
 -Added 10 prestige upgrades.<br>
@@ -44,7 +56,7 @@ let changelog = `<h1>Changelog:</h1><br>
 -Added 3 prestige milestones.<br>
 -Added 16 achievements. Some of them have rewards!<br>
 -Added Time Accelerators! Time Accelerators multiply your point production by speeding up time itself.<br>
--You have -30,000,000 social credit, execution date September 26th<br><br><br>`
+-You have -30,000,000 social credit, execution date September 26th<br><br><br></span>`
 
 let winText = `@randomtuba#8432 You litte f**ker<br>You made a shit of piece with your trash rewrite it's f**King Bad this trash game I will become back my money I hope you will in your next time a cow on a trash farm you sucker`
 
@@ -80,8 +92,10 @@ function getPointGen() {
   if(hasUpgrade("p",24)) gain = gain.mul(upgradeEffect("p",24))
   if(hasUpgrade("a",11)) gain = gain.mul(100)
   gain = gain.mul(buyableEffect("p",13))
-  gain = gain.mul(new Decimal(4).mul(hasUpgrade("b",11)?2:1).mul(hasUpgrade("b",12)?upgradeEffect("b",12):1).mul(hasUpgrade("b",23)?upgradeEffect("b",23):1).pow(player.b.points).pow(hasUpgrade("b",21)?2:1))
+  gain = gain.mul(new Decimal(4).mul(hasUpgrade("b",11)?2:1).mul(hasUpgrade("b",12)?upgradeEffect("b",12):1).mul(hasUpgrade("b",23)?upgradeEffect("b",23):1).mul(player.sb.points.add(1).pow(hasUpgrade("b",31)?7:5)).mul(hasUpgrade("b",33)?upgradeEffect("b",33).eff:1).pow(player.b.points).pow(hasUpgrade("b",21)?2:1))
   if(hasAchievement("g",54)) gain = gain.mul(player.to.atokens.pow(10).add(1))
+  gain = gain.mul(player.t.shards.pow(hasUpgrade("t",21)?10:0.5).add(1))
+  gain = gain.mul(buyableEffect("a",11))
   if(gain.gte("1e3000")) gain = hasUpgrade("p",32) ? (hasUpgrade("a",32) ? gain.pow(0.86).mul("1e420") : gain.pow(0.85).mul("1e450")) : gain.pow(0.75).mul("1e750")
 	return gain
 }
@@ -91,13 +105,13 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [`<span>Current Endgame: 1e25,000 points</span>`,
+var displayThings = [`<span>Current Endgame: 1e500,000 points</span>`,
         () => player.points.gte("1e3000") ? '<span style="color:orange">Your points have been (softcapped) due to taxes</span>' : ''
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e25000"))
+	return player.points.gte(new Decimal("1e500000"))
 }
 
 

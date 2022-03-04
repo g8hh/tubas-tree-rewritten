@@ -12,7 +12,7 @@ addLayer("g", {
     type: "none", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     row: "side", // Row the layer is in on the tree (0 is the first row)
 tabFormat: [
-    ["display-text", () => `You have ${player.g.achievements.length}/30 achievements (${format(new Decimal(player.g.achievements.length).div(30).mul(100))}%)<br><br>`],
+    ["display-text", () => `You have ${player.g.achievements.length}/42 achievements (${format(new Decimal(player.g.achievements.length).div(42).mul(100))}%)<br><br>`],
     "achievements"
 ],
     layerShown(){return true},
@@ -163,9 +163,69 @@ tabFormat: [
       tooltip:"Buy the second token upgrade."
     },
     56: {
-        name: "The time has come!",
+        name: "Highly Respected",
       done(){return hasUpgrade("p",35)},
-      tooltip:"Buy Inflation I."
+      tooltip:"Have 15 prestige upgrades."
+    },
+    61: {
+        name: "Far Beyond",
+      done(){return player.t.points.gte(1)},
+      tooltip:"Transcend. Reward: Gain 100x more ascension points, if you have the first 4 Acension Milestones."
+    },
+    62: {
+        name: "Shard Bonanza",
+      done(){return player.t.shards.gte(1000)},
+      tooltip:"Reach 1,000 shards. Reward: Shard gain is doubled."
+    },
+    63: {
+        name: "TRANSCENDED",
+      done(){return player.t.total.gte(8)},
+      tooltip:"Obtain 7 transcension milestones."
+    },
+    64: {
+        name: "Nice^Nice",
+      done(){return player.points.gte("1.1349e26783")},
+      tooltip:"Reach 1e26,783 points."
+    },
+    65: {
+        name: "One per generator",
+      done(){return player.t.buyables[13] >= 1},
+      tooltip:"Buy Shard Generator 3. Reward: Transcension point gain is doubled."
+    },
+    66: {
+        name: "Boosterless",
+      done(){return player.a.points.gte("1e525") && player.b.points.eq(0)},
+      tooltip:"Reach 1e525 ascension points without any Boosters. Reward: Gain 1,000x more prestige tokens."
+    },
+    71: {
+        name: "True Divinity",
+      done(){return player.a.points.gte("1e2000")},
+      tooltip:"Reach 1e2000 ascension points."
+    },
+    72: {
+        name: "Insane Gains",
+      done(){return player.t.points.gte(2000000)},
+      tooltip:"Reach 2,000,000 transcension points."
+    },
+    73: {
+        name: "AD clone",
+      done(){return hasUpgrade("p",43)},
+      tooltip:"Unlock Shard Tickspeed."
+    },
+    74: {
+        name: "No, there's no HB",
+      done(){return player.sb.points.gte(1)},
+      tooltip:"Buy a super-booster."
+    },
+    75: {
+        name: "Point Galaxy",
+      done(){return player.points.gte("1e150000")},
+      tooltip:"Reach 1e150,000 points."
+    },
+    76: {
+        name: "Yet another new buyable",
+      done(){return hasUpgrade("t",24)},
+      tooltip:"Unlock the 2nd ascension buyable."
     },
 },
 })
@@ -195,10 +255,19 @@ addLayer("to", {
     type: "none", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     row: "side", // Row the layer is in on the tree (0 is the first row)
     position: 1,
+    automate(){
+      if (player.to.auto) {
+        setBuyableAmount("to",11,tmp.to.buyables[11].canAfford?player.to.ptokens.div(100).log(8).floor().add(1):getBuyableAmount("to",11))
+        setBuyableAmount("to",12,tmp.to.buyables[12].canAfford?player.to.ptokens.div(1000).log(9).floor().add(1):getBuyableAmount("to",12))
+        setBuyableAmount("to",21,tmp.to.buyables[21].canAfford?player.to.atokens.div(2).log(2).floor().add(1):getBuyableAmount("to",21))
+        setBuyableAmount("to",22,tmp.to.buyables[22].canAfford?player.to.atokens.div(3).log(2).floor().add(1):getBuyableAmount("to",22))
+      }
+    },
     layerShown(){return hasUpgrade("a",25)},
     update(diff){
-      if(hasUpgrade("a",25)) player.to.ptokens = player.to.ptokens.add(new Decimal(hasUpgrade("to",12) ? new Decimal(1.3).pow(player.g.achievements.length) : player.g.achievements.length).mul(buyableEffect("to",11)).pow(hasUpgrade("a",31)?1.2:1).mul(diff))
-      if(hasUpgrade("a",33)) player.to.atokens = player.to.atokens.add(new Decimal(player.g.achievements.length).sub(24).mul(2).mul(hasUpgrade("to",11)?3:1).mul(diff))
+      if(hasUpgrade("a",25)) player.to.ptokens = player.to.ptokens.add(new Decimal(hasUpgrade("to",12) ? new Decimal(1.3).pow(player.g.achievements.length) : player.g.achievements.length).mul(buyableEffect("to",11)).pow(hasUpgrade("a",31)?1.2:1).mul(hasMilestone("t",5)?100:1).mul(hasAchievement("g",66)?1000:1).mul(diff))
+      if(hasUpgrade("a",33)) player.to.atokens = player.to.atokens.add(new Decimal(player.g.achievements.length).sub(24).mul(2).mul(hasUpgrade("to",11)?3:1).mul(hasMilestone("t",5)?100:1).mul(diff))
+      player.to.ptokens = player.to.ptokens.min(1e45)
       player.to.atokens = player.to.atokens.min(100000)
       // player.points.gte("1e3000") ? document.getElementById("taxes").style.display = "" : document.getElementById("taxes").style.display = "none";
     },
@@ -233,7 +302,7 @@ addLayer("to", {
     },
     21: {
         title: "More AP",
-        cost(x) { return new Decimal(2).mul(new Decimal(2).pow(x)).mul(new Decimal(4).pow(getBuyableAmount("to",22))) },
+        cost(x) { return new Decimal(2).mul(new Decimal(2).pow(x)).mul(new Decimal(4).pow(!hasMilestone("t",0) ? getBuyableAmount("to",22) : 1)) },
         display() {return `Multiply ascension point gain by 1e10 every time you buy this!\nTimes Bought: ${format(getBuyableAmount(this.layer, this.id))}\nCost: ${format(this.cost())} ascension tokens\nEffect: ${format(this.effect())}x ascension points`},
         canAfford() {return player.to.atokens.gte(this.cost())},
         buy() {
@@ -247,8 +316,8 @@ addLayer("to", {
         },
     },
     22: {
-        title: "Better Exponent",
-        cost(x) { return new Decimal(3).mul(new Decimal(2).pow(x)).mul(new Decimal(4).pow(getBuyableAmount("to",21))) },
+        title: "Booster Division",
+        cost(x) { return new Decimal(3).mul(new Decimal(2).pow(x)).mul(new Decimal(4).pow(!hasMilestone("t",0) ? getBuyableAmount("to",21) : 1)) },
         display() {return `Divide the booster cost by 1e100 every time you buy this!\nTimes Bought: ${format(getBuyableAmount(this.layer, this.id))}\nCost: ${format(this.cost())} ascension tokens\nEffect: /${format(this.effect())} booster cost`},
         canAfford() {return player.to.atokens.gte(this.cost())},
         buy() {
@@ -267,7 +336,7 @@ addLayer("to", {
         title: "I'm tired of waiting...",
         description: "Then wait less! Gain 3x more ascension tokens.",
         cost: new Decimal(200),
-        unlocked() {return hasUpgrade("a",33)},
+        unlocked() {return hasUpgrade("a",33) || player.t.total.gte(1)},
         currencyDisplayName: "ascension tokens",
         currencyInternalName: "atokens",
         currencyLayer: "to",
