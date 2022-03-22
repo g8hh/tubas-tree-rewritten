@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "Tuba's Tree Rewritten",
+	name: "Tubas树 - Tuba's Tree Rewritten",
 	id: "tt_rewrite",
 	author: "randomtuba",
 	pointsName: "points",
