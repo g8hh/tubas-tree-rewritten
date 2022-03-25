@@ -524,7 +524,7 @@ var cnRegReplace = new Map([
     [/^Quadruple prestige token gain every time you buy this!\nTimes Bought: (.+)\nCost: (.+) prestige tokens\nEffect: (.+) prestige tokens$/, '每次购买都会获得四倍声望代币！\n购买次数：$1\n成本：$2 声望代币\n效果：$3 声望代币'],
     [/^Multiply point gain by 10x every time you buy this!\nTimes Bought: (.+)\nCost: (.+)\nEffect: (.+) points$/, '每次购买，点数收益乘以 10 倍！\n购买次数：$1\n成本：$2\n效果：$3 点数'],
     [/^Reach 1.00e230 prestige points to unlock \(You have (.+) prestige points$/, '达到 1.00e230 声望点解锁（你有 $1 声望点'],
-    [/^Reach (.+) points to unlock \(You have (.+) points$/, '达到 1.00e230 点数解锁（你有 $1 点数'],
+    [/^Reach (.+) points to unlock \(You have (.+) points$/, '达到 $1 点数解锁（你有 $2 点数'],
     [/^Double point gain every time you buy this!\nTimes Bought: (.+)\nCost: (.+)\nEffect: (.+) points$/, '每次购买都会获得双倍点数！\n购买次数：$1\成本：$2\效果：$3 点数'],
     [/^Multiply prestige point gain by 1.5x every time you buy this!\nTimes Bought: (.+)\nCost: (.+)\nEffect: (.+) prestige points$/, '每次购买，声望点增益乘以 1.5 倍！\n购买次数：$1\n成本：$2\n效果：$3 声望点'],
     [/^Mass-produces points around the country! They do cause a bit of pollution, but this an idle game, so you shouldn't care.\nAmount Built: (.+)\nCost: (.+)$/, '全国各地量产点数！ 它们确实会造成一些污染，但这是一款放置游戏，所以你不必在意。\n建造数量：$1\n成本：$2'],
